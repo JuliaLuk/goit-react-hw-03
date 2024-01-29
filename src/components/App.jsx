@@ -21,7 +21,7 @@ export const App = () => {
 
   const addUser = (newUser) => {
     setUsers((prevUsers) => {
-      return [...prevUsers, { username: newUser, id: Date.now() }];
+      return [...prevUsers, newUser];
     });
   };
 
