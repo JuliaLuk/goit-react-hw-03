@@ -1,22 +1,22 @@
 import { useState } from "react";
 import "../components/App.css";
-import { PaymentForm } from "./PaymentForm";
-import { Filter } from "../Filter";
-import { Users } from "./Users";
-import { UserForm } from "./UserForm";
+// import { PaymentForm } from "./PaymentForm";
+import { Filter } from "./Filter/Filter";
+import { Users } from "./Users/Users";
+import { UserForm } from "./UserForm/UserForm";
 
 export const App = () => {
   const [nameFilter, setNameFilter] = useState("");
   const [users, setUsers] = useState([
-    { username: "Mack", id: 34567 },
-    { username: "Madi", id: 45678 },
-    { username: "Henry", id: 56789 },
-    { username: "Abry", id: 67890 },
-    { username: "Sam", id: 78901 },
-    { username: "Skarlet", id: 89012 },
-    { username: "Dawson", id: 90123 },
-    { username: "Phinly", id: 12345 },
-    { username: "Leiklan", id: 23456 },
+    { username: "Mack", access: "r", id: 34567 },
+    { username: "Madi", access: "w", id: 45678 },
+    { username: "Henry", access: "m", id: 56789 },
+    { username: "Abry", access: "r", id: 67890 },
+    { username: "Sam", access: "m", id: 78901 },
+    { username: "Skarlet", access: "w", id: 89012 },
+    { username: "Dawson", access: "r", id: 90123 },
+    { username: "Phinly", access: "m", id: 12345 },
+    { username: "Leiklan", access: "w", id: 23456 },
   ]);
 
   const addUser = (newUser) => {
@@ -40,7 +40,7 @@ export const App = () => {
 
   return (
     <>
-      <PaymentForm onSubmit={makePayment} />
+      {/* <PaymentForm onSubmit={makePayment} /> */}
       <UserForm onAdd={addUser} />
       <Filter value={nameFilter} onChange={setNameFilter} />
       <Users items={visibleUsers} onDelete={deleteUser} />
