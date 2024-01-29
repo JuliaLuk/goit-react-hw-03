@@ -1,24 +1,39 @@
 import { useState } from "react";
 import "../components/App.css";
 import { PaymentForm } from "./PaymentForm";
+import { Filter } from "../Filter";
+import { Users } from "./Users";
+import { UserForm } from "./UserForm";
 
 export const App = () => {
-  const [inputValue, setInputValue] = useState("");
+  const [nameFilter, setNameFilter] = useState("");
   const [users, setUsers] = useState([
-    "Mack",
-    "Madi",
-    "Henry",
-    "Abry",
-    "Sam",
-    "Skarlet",
-    "Dawson",
-    "Phinly",
-    "Leiklan",
+    { username: "Mack", id: 34567 },
+    { username: "Madi", id: 45678 },
+    { username: "Henry", id: 56789 },
+    { username: "Abry", id: 67890 },
+    { username: "Sam", id: 78901 },
+    { username: "Skarlet", id: 89012 },
+    { username: "Dawson", id: 90123 },
+    { username: "Phinly", id: 12345 },
+    { username: "Leiklan", id: 23456 },
   ]);
+
+  const addUser = (newUser) => {
+    setUsers((prevUsers) => {
+      return [...prevUsers, { username: newUser, id: Date.now() }];
+    });
+  };
+
+  const deleteUser = (userId) => {
+    setUsers((prevUsers) => {
+      return prevUsers.filter((user) => user.id !== userId);
+    });
+  };
   const visibleUsers = users.filter((user) =>
-    user.toLowerCase().includes(inputValue.toLowerCase())
+    user.username.toLowerCase().includes(nameFilter.toLowerCase())
   );
-  console.log(visibleUsers);
+
   const makePayment = (options) => {
     console.log("make payment on: ", options);
   };
@@ -26,17 +41,10 @@ export const App = () => {
   return (
     <>
       <PaymentForm onSubmit={makePayment} />
-      <input
-        type="text"
-        value={inputValue}
-        onChange={(event) => setInputValue(event.target.value)}
-      />
-      <ul>
-        {visibleUsers.map((user) => (
-          <li key={user}>{user}</li>
-        ))}
-      </ul>
-      <p>{inputValue}</p>
+      <UserForm onAdd={addUser} />
+      <Filter value={nameFilter} onChange={setNameFilter} />
+      <Users items={visibleUsers} onDelete={deleteUser} />
+      <p>{nameFilter}</p>
     </>
   );
 };
